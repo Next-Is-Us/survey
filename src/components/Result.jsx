@@ -3,7 +3,10 @@ import Frame from '../image/Frame 1707482243.png';
 import styled from 'styled-components';
 import LeftAllow from '../image/allow_left.png';
 import { useState } from 'react';
-import Character from '../image/Frame 1707482235.png';
+import Character1 from '../image/Frame 1707482235.png';
+import Character2 from '../image/Character2.png';
+import Character3 from '../image/Character3.png';
+
 const Container = styled.div`
   background: #ffffff;
   padding: 0;
@@ -30,78 +33,7 @@ const TopContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-start;
-  background-color: yellow;
   flex-direction: column;
-`;
-
-const ProgressbarContainer = styled.div`
-  width: calc(100% + 2.5rem);
-  margin: 0 -1.25rem;
-  height: 0.125rem;
-  background-color: #d9d9d9;
-  margin-bottom: 1rem;
-  position: relative;
-`;
-
-const Progressbar = styled.div`
-  width: ${({ progress }) => `${progress}%`};
-  height: 100%;
-  background-color: #a30ffa;
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
-
-const Title = styled.p`
-  color: var(--Font-02_black, #111);
-
-  /* MO/Title/KR/T1_KR_Sb */
-  font-family: Pretendard;
-  font-size: 1.5rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 2.125rem; /* 141.667% */
-  letter-spacing: -0.0375rem;
-  text-align: left;
-  margin-bottom: 3rem;
-`;
-
-const ChoiceBlank = styled.div`
-  display: flex;
-  color: ${({ isSelected }) => (isSelected ? '#A30FFA' : '#111')};
-  height: 1.5rem;
-  padding: 1.4375rem 1.75rem;
-  align-items: center;
-  gap: 0.625rem;
-  align-self: stretch;
-  border-radius: 0.75rem;
-  background: ${({ isSelected }) =>
-    isSelected
-      ? 'rgba(163, 15, 250, 0.15)'
-      : 'var(--BG-Regular_Color, #f1f1f5)'};
-  cursor: pointer;
-  border: ${({ isSelected }) =>
-    isSelected ? '1px solid rgba(163, 15, 250, 0.50)' : 'none'};
-  &:hover {
-    background-color: rgba(163, 15, 250, 0.15);
-  }
-`;
-
-const BlankContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 0.5rem;
-`;
-
-const ChoiceP = styled.p`
-  color: ${({ isSelected }) => (isSelected ? '#A30FFA' : '#111')};
-  font-family: Pretendard;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 1.5rem; /* 150% */
-  letter-spacing: -0.025rem;
 `;
 
 const Button = styled.button`
@@ -134,13 +66,11 @@ const Button = styled.button`
 const ResultTitle = styled.p`
   color: var(--Font-02_black, #111);
   text-align: center;
-
-  /* MO/Title/KR/T1_KR_Sb */
   font-family: Pretendard;
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 600;
-  line-height: 2.125rem; /* 141.667% */
+  line-height: 2.125rem;
   letter-spacing: -0.0375rem;
   margin-bottom: 1rem;
 `;
@@ -148,13 +78,11 @@ const ResultTitle = styled.p`
 const ResultExplain = styled.p`
   color: var(--Font-03_Gray, #505050);
   text-align: center;
-
-  /* MO/Body/KR/B2_KR_Rg */
   font-family: Pretendard;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.25rem; /* 142.857% */
+  line-height: 1.25rem;
   letter-spacing: -0.02188rem;
 `;
 
@@ -178,7 +106,45 @@ const questions = [
   </React.Fragment>,
 ];
 
+const results = [
+  {
+    image: Character1,
+    title: '경미한 갱년기 상태',
+    explain: (
+      <React.Fragment>
+        현재 경미하게 갱년기 증상을 겪고 계신 것으로 <br /> 파악됩니다. <br />
+        <b>건강한 식사, 규칙적인 운동의 생활 습관</b>을<br /> 갖추시는 것을
+        추천드려요.
+      </React.Fragment>
+    ),
+  },
+  {
+    image: Character2,
+    title: '중증 갱년기 상태',
+    explain: (
+      <React.Fragment>
+        현재, 중증 갱년기 상태로 파악됩니다
+        <br />
+        증상에 대한 <b>검사와 지속적인 관리</b>가<br /> 필요해요
+      </React.Fragment>
+    ),
+  },
+  {
+    image: Character3,
+    title: '심한 갱년기 상태',
+    explain: (
+      <React.Fragment>
+        현재, 심한 갱년기 상태로 파악됩니다
+        <br />
+        <b>전문의의 치료와 지속적인 관리</b>가<br /> 필요해요
+      </React.Fragment>
+    ),
+  },
+];
+
 function Result() {
+  const [resultIndex, setResultIndex] = useState(0);
+
   return (
     <Container>
       <Article>
@@ -195,21 +161,15 @@ function Result() {
           </TopContainer>
 
           <img
-            src={Character}
+            src={results[resultIndex].image}
             style={{ display: 'flex', alignItems: 'center' }}
           />
 
-          <ResultTitle>경미한 갱년기 상태</ResultTitle>
+          <ResultTitle>{results[resultIndex].title}</ResultTitle>
 
-          <ResultExplain>
-            현재 경미하게 갱년기 증상을 겪고 계신 것으로
-            <br /> 파악됩니다
-            <br />
-            <b>건강한 식사, 규칙적인 운동의 생활 습관을</b> <br />
-            갖추시는 것을 추천드려요
-          </ResultExplain>
+          <ResultExplain>{results[resultIndex].explain}</ResultExplain>
 
-          <Button>다음</Button>
+          <Button>다음으로 넘어가기</Button>
         </PosTitleContainer>
       </Article>
     </Container>
