@@ -33,8 +33,8 @@ const TopContainer = styled.div`
 `;
 
 const ProgressbarContainer = styled.div`
-  width: 100%;
-  margin-top: 0.88rem;
+  width: calc(100% + 2.5rem);
+  margin: 0 -1.25rem;
   height: 0.125rem;
   background-color: #d9d9d9;
   margin-bottom: 1rem;
@@ -115,17 +115,38 @@ const Button = styled.button`
   letter-spacing: -0.025rem;
   margin-bottom: 2rem;
 `;
+
+const questions = [
+  <React.Fragment>
+    홍조, 얼굴 화끈거림의 증상을 <br />
+    가지고 계신가요?
+  </React.Fragment>,
+  '발현 증상을 겪고 계신가요?',
+  '불면증 증상을 겪고 계신가요?',
+  '신경증 증상을 겪고 계신가요?',
+  '우울증 증상을 겪고 계신가요?',
+  '어지럼증 증상을 겪고 계신가요?',
+  '잦은 피로감을 느끼시나요?',
+  '관절통, 근육통을 느끼시나요?',
+  '두통 증상을 겪고 계시나요?',
+  '가슴 두근거림을 겪고 계시나요?',
+  <React.Fragment>
+    질건조, 분비물 감소 증상을 <br />
+    겪고 계시나요?
+  </React.Fragment>,
+];
+
 function Question() {
-  const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const totalQuestions = 11;
 
   const handleNextQuestion = () => {
-    if (currentQuestion < totalQuestions) {
+    if (currentQuestion < totalQuestions - 1) {
       setCurrentQuestion(currentQuestion + 1);
     }
   };
 
-  const progress = (currentQuestion / totalQuestions) * 100;
+  const progress = ((currentQuestion + 1) / totalQuestions) * 100;
 
   return (
     <Container>
@@ -134,17 +155,18 @@ function Question() {
           <TopContainer>
             <img
               src={LeftAllow}
-              style={{ width: '1.75rem', height: '1.75rem', margin: 0 }}
+              style={{
+                width: '1.75rem',
+                height: '1.75rem',
+                marginBottom: '0.88rem',
+              }}
             />
 
             <ProgressbarContainer>
               <Progressbar progress={progress} />
             </ProgressbarContainer>
 
-            <Title>
-              홍조, 얼굴 화끈거림의 증상을 <br />
-              가지고 계신가요?
-            </Title>
+            <Title>{questions[currentQuestion]}</Title>
 
             <BlankContainer>
               <ChoiceBlank>
@@ -162,7 +184,7 @@ function Question() {
             </BlankContainer>
           </TopContainer>
 
-          <Button>다음</Button>
+          <Button onClick={handleNextQuestion}>다음</Button>
         </PosTitleContainer>
       </Article>
     </Container>
