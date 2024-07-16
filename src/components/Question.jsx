@@ -72,7 +72,16 @@ const ChoiceBlank = styled.div`
   gap: 0.625rem;
   align-self: stretch;
   border-radius: 0.75rem;
-  background: var(--BG-Regular_Color, #f1f1f5);
+  background: ${({ isSelected }) =>
+    isSelected
+      ? 'rgba(163, 15, 250, 0.15)'
+      : 'var(--BG-Regular_Color, #f1f1f5)'};
+  cursor: pointer;
+  border: ${({ isSelected }) =>
+    isSelected ? '1px solid rgba(163, 15, 250, 0.50)' : 'none'};
+  &:hover {
+    background-color: rgba(163, 15, 250, 0.15);
+  }
 `;
 
 const BlankContainer = styled.div`
@@ -97,14 +106,19 @@ const ChoiceP = styled.p`
 const Button = styled.button`
   margin-top: 5rem;
   border-radius: 12px;
-  background: #a30ffa;
+  background: ${({ isDisabled }) =>
+    isDisabled ? 'rgba(163, 15, 250, 0.15)' : '#A30FFA'};
+  color: #ffffff;
+  &:disabled {
+    cursor: not-allowed;
+    background: rgba(163, 15, 250, 0.15);
+  }
   display: flex;
   width: 100%;
   padding: 0.875rem 1rem;
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
-  color: var(--Font-01_White, #fff);
   text-align: center;
   border: none;
   font-family: Pretendard;
@@ -137,17 +151,24 @@ const questions = [
 ];
 
 function Question() {
+  const [selectedOption, setSelectedOption] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const totalQuestions = 11;
+  const options = ['심함', '보통', '약간', '없음'];
+
+  const handleSelect = (option) => {
+    setSelectedOption(option);
+  };
 
   const handleNextQuestion = () => {
-    if (currentQuestion < totalQuestions - 1) {
+    if (selectedOption !== null && currentQuestion < totalQuestions - 1) {
       setCurrentQuestion(currentQuestion + 1);
+      setSelectedOption(null); // 다음 질문으로 넘어가면 선택 상태 초기화
     }
   };
 
+  const isButtonDisabled = selectedOption === null;
   const progress = ((currentQuestion + 1) / totalQuestions) * 100;
-
   return (
     <Container>
       <Article>
@@ -169,22 +190,25 @@ function Question() {
             <Title>{questions[currentQuestion]}</Title>
 
             <BlankContainer>
-              <ChoiceBlank>
-                <ChoiceP>심함</ChoiceP>
-              </ChoiceBlank>
-              <ChoiceBlank>
-                <ChoiceP>보통</ChoiceP>
-              </ChoiceBlank>
-              <ChoiceBlank>
-                <ChoiceP>약간</ChoiceP>
-              </ChoiceBlank>
-              <ChoiceBlank>
-                <ChoiceP>없음</ChoiceP>
-              </ChoiceBlank>
+              {options.map((option, index) => (
+                <ChoiceBlank
+                  key={index}
+                  isSelected={selectedOption === option}
+                  onClick={() => handleSelect(option)}
+                >
+                  <ChoiceP>{option}</ChoiceP>
+                </ChoiceBlank>
+              ))}
             </BlankContainer>
           </TopContainer>
 
-          <Button onClick={handleNextQuestion}>다음</Button>
+          <Button
+            onClick={handleNextQuestion}
+            isDisabled={isButtonDisabled}
+            disabled={isButtonDisabled}
+          >
+            다음
+          </Button>
         </PosTitleContainer>
       </Article>
     </Container>
