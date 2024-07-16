@@ -3,8 +3,7 @@ import Frame from '../image/Frame 1707482243.png';
 import styled from 'styled-components';
 import LeftAllow from '../image/allow_left.png';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import Character from '../image/Frame 1707482235.png';
 const Container = styled.div`
   background: #ffffff;
   padding: 0;
@@ -31,6 +30,7 @@ const TopContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-start;
+  background-color: yellow;
   flex-direction: column;
 `;
 
@@ -105,7 +105,7 @@ const ChoiceP = styled.p`
 `;
 
 const Button = styled.button`
-  margin-top: 5rem;
+  margin-top: 4.62rem;
   border-radius: 12px;
   background: ${({ isDisabled }) =>
     isDisabled ? 'rgba(163, 15, 250, 0.15)' : '#A30FFA'};
@@ -131,6 +131,33 @@ const Button = styled.button`
   margin-bottom: 2rem;
 `;
 
+const ResultTitle = styled.p`
+  color: var(--Font-02_black, #111);
+  text-align: center;
+
+  /* MO/Title/KR/T1_KR_Sb */
+  font-family: Pretendard;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2.125rem; /* 141.667% */
+  letter-spacing: -0.0375rem;
+  margin-bottom: 1rem;
+`;
+
+const ResultExplain = styled.p`
+  color: var(--Font-03_Gray, #505050);
+  text-align: center;
+
+  /* MO/Body/KR/B2_KR_Rg */
+  font-family: Pretendard;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem; /* 142.857% */
+  letter-spacing: -0.02188rem;
+`;
+
 const questions = [
   <React.Fragment>
     홍조, 얼굴 화끈거림의 증상을 <br />
@@ -151,35 +178,7 @@ const questions = [
   </React.Fragment>,
 ];
 
-function Question() {
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const totalQuestions = 11;
-  const options = ['심함', '보통', '약간', '없음'];
-  const navigate = useNavigate();
-
-  const handleSelect = (option) => {
-    setSelectedOption(option);
-  };
-
-  const handleNextQuestion = () => {
-    if (selectedOption !== null && currentQuestion < totalQuestions - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-      setSelectedOption(null); // 다음 질문으로 넘어가면 선택 상태 초기화
-    } else {
-      navigate('/result');
-    }
-  };
-
-  const handlePreviousQuestion = () => {
-    if (currentQuestion > 0) {
-      setCurrentQuestion(currentQuestion - 1);
-    }
-  };
-
-  const isButtonDisabled = selectedOption === null;
-  const progress = ((currentQuestion + 1) / totalQuestions) * 100;
-
+function Result() {
   return (
     <Container>
       <Article>
@@ -190,44 +189,31 @@ function Question() {
               style={{
                 width: '1.75rem',
                 height: '1.75rem',
-                marginBottom: '0.88rem',
                 cursor: 'pointer',
               }}
-              onClick={handlePreviousQuestion}
             />
-
-            <ProgressbarContainer>
-              <Progressbar progress={progress} />
-            </ProgressbarContainer>
-
-            <Title>{questions[currentQuestion]}</Title>
-
-            <BlankContainer>
-              {options.map((option, index) => (
-                <ChoiceBlank
-                  key={index}
-                  isSelected={selectedOption === option}
-                  onClick={() => handleSelect(option)}
-                >
-                  <ChoiceP isSelected={selectedOption === option}>
-                    {option}
-                  </ChoiceP>
-                </ChoiceBlank>
-              ))}
-            </BlankContainer>
           </TopContainer>
 
-          <Button
-            onClick={handleNextQuestion}
-            isDisabled={isButtonDisabled}
-            disabled={isButtonDisabled}
-          >
-            다음
-          </Button>
+          <img
+            src={Character}
+            style={{ display: 'flex', alignItems: 'center' }}
+          />
+
+          <ResultTitle>경미한 갱년기 상태</ResultTitle>
+
+          <ResultExplain>
+            현재 경미하게 갱년기 증상을 겪고 계신 것으로
+            <br /> 파악됩니다
+            <br />
+            <b>건강한 식사, 규칙적인 운동의 생활 습관을</b> <br />
+            갖추시는 것을 추천드려요
+          </ResultExplain>
+
+          <Button>다음</Button>
         </PosTitleContainer>
       </Article>
     </Container>
   );
 }
 
-export default Question;
+export default Result;
