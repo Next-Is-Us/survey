@@ -1,5 +1,5 @@
 import React from 'react';
-import Frame from '../image/Frame 1707482243.png';
+import Frame from '../image/MainImage.png';
 import styled from 'styled-components';
 import GlobalStyle from '../GlobalStyle.js';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +14,7 @@ const Article = styled.div`
   display: flex;
   text-align: center;
   flex-direction: column;
-  margin-top: 5.44rem;
+  margin-top: 1.75rem;
   color: #fff;
 `;
 
@@ -55,14 +55,13 @@ const TestName = styled.p`
 `;
 
 const Images = styled.img`
-  width: 18rem;
-  height: 16.625rem;
+  width: 100%;
+  height: 22rem;
   flex-shrink: 0;
-  margin-top: 5.44rem;
+  margin-top: 4.31rem;
 `;
 
 const Button = styled.button`
-  margin-top: 5rem;
   border-radius: 12px;
   background: #a30ffa;
   display: flex;

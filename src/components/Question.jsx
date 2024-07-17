@@ -1,5 +1,4 @@
 import React from 'react';
-import Frame from '../image/Frame 1707482243.png';
 import styled from 'styled-components';
 import LeftAllow from '../image/allow_left.png';
 import { useState } from 'react';
@@ -57,19 +56,20 @@ const Title = styled.p`
 
   /* MO/Title/KR/T1_KR_Sb */
   font-family: Pretendard;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 600;
-  line-height: 2.125rem; /* 141.667% */
+  line-height: 1.75rem;
   letter-spacing: -0.0375rem;
   text-align: left;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 `;
 
 const ChoiceBlank = styled.div`
   display: flex;
   color: ${({ isSelected }) => (isSelected ? '#A30FFA' : '#111')};
-  height: 1.5rem;
+  height: 4.5rem;
+  box-sizing: border-box;
   padding: 1.4375rem 1.75rem;
   align-items: center;
   gap: 0.625rem;
@@ -132,28 +132,66 @@ const Button = styled.button`
 `;
 
 const questions = [
-  <React.Fragment>
-    홍조, 얼굴 화끈거림의 증상을 <br />
-    가지고 계신가요?
-  </React.Fragment>,
-  '발현 증상을 겪고 계신가요?',
-  '불면증 증상을 겪고 계신가요?',
-  '신경증 증상을 겪고 계신가요?',
-  '우울증 증상을 겪고 계신가요?',
-  '어지럼증 증상을 겪고 계신가요?',
-  '잦은 피로감을 느끼시나요?',
-  '관절통, 근육통을 느끼시나요?',
-  '두통 증상을 겪고 계시나요?',
-  '가슴 두근거림을 겪고 계시나요?',
-  <React.Fragment>
-    질건조, 분비물 감소 증상을 <br />
-    겪고 계시나요?
-  </React.Fragment>,
+  {
+    text: (
+      <React.Fragment>
+        홍조, 얼굴 화끈거림의 증상을 <br />
+        가지고 계신가요?
+      </React.Fragment>
+    ),
+    points: [12, 8, 4, 0],
+  },
+  {
+    text: '발현 증상을 겪고 계신가요?',
+    points: [6, 4, 2, 0],
+  },
+  {
+    text: '불면증 증상을 겪고 계신가요?',
+    points: [6, 4, 2, 0],
+  },
+  {
+    text: '신경증 증상을 겪고 계신가요?',
+    points: [6, 4, 2, 0],
+  },
+  {
+    text: '우울증 증상을 겪고 계신가요?',
+    points: [3, 2, 1, 0],
+  },
+  {
+    text: '어지럼증 증상을 겪고 계신가요?',
+    points: [3, 2, 1, 0],
+  },
+  {
+    text: '잦은 피로감을 느끼시나요?',
+    points: [3, 2, 1, 0],
+  },
+  {
+    text: '관절통, 근육통을 느끼시나요?',
+    points: [3, 2, 1, 0],
+  },
+  {
+    text: '두통 증상을 겪고 계시나요?',
+    points: [3, 2, 1, 0],
+  },
+  {
+    text: '가슴 두근거림을 겪고 계시나요?',
+    points: [3, 2, 1, 0],
+  },
+  {
+    text: (
+      <React.Fragment>
+        질건조, 분비물 감소 증상을 <br />
+        겪고 계시나요?
+      </React.Fragment>
+    ),
+    points: [3, 2, 1, 0],
+  },
 ];
 
 function Question() {
   const [selectedOption, setSelectedOption] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
   const totalQuestions = 11;
   const options = ['심함', '보통', '약간', '없음'];
   const navigate = useNavigate();
@@ -163,17 +201,27 @@ function Question() {
   };
 
   const handleNextQuestion = () => {
-    if (selectedOption !== null && currentQuestion < totalQuestions - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-      setSelectedOption(null); // 다음 질문으로 넘어가면 선택 상태 초기화
-    } else {
-      navigate('/result');
+    if (selectedOption !== null) {
+      const optionPoints =
+        questions[currentQuestion].points[options.indexOf(selectedOption)];
+      setScore(score + optionPoints);
+
+      if (currentQuestion < totalQuestions - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+        setSelectedOption(null);
+      } else {
+        navigate('/result', { state: { finalScore: score + optionPoints } });
+      }
     }
   };
 
   const handlePreviousQuestion = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
+      const previousPoints =
+        questions[currentQuestion - 1].points[options.indexOf(selectedOption)];
+      setScore(score - previousPoints);
+      setSelectedOption(null);
     }
   };
 
@@ -200,7 +248,7 @@ function Question() {
               <Progressbar progress={progress} />
             </ProgressbarContainer>
 
-            <Title>{questions[currentQuestion]}</Title>
+            <Title>{questions[currentQuestion].text}</Title>
 
             <BlankContainer>
               {options.map((option, index) => (
