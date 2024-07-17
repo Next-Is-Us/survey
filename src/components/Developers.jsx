@@ -1,18 +1,19 @@
-import styled from "styled-components";
-import LeftAllow from "../image/allow_left.png";
-import PersonContainer from "./PersonContainer";
-import PmProfileImg from "../image/pmProfile.svg";
-import designerProfileImg from "../image/designerProfile.svg";
-import backProfileK from "../image/backProfileK.svg";
-import backProfileL from "../image/backProfileL.svg";
-import frontProfileL from "../image/frontProfileL.svg";
-import frontProfileP from "../image/frontProfileP.svg";
-import pencilImg from "../image/pencil.svg";
-import shareImg from "../image/share.svg";
+import styled from 'styled-components';
+import LeftAllow from '../image/allow_left.png';
+import PersonContainer from './PersonContainer';
+import PmProfileImg from '../image/pmProfile.svg';
+import designerProfileImg from '../image/designerProfile.svg';
+import backProfileK from '../image/backProfileK.svg';
+import backProfileL from '../image/backProfileL.svg';
+import frontProfileL from '../image/frontProfileL.svg';
+import frontProfileP from '../image/frontProfileP.svg';
+import pencilImg from '../image/pencil.svg';
+import shareImg from '../image/share.svg';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
-  // background: #ffffff;
-  background: black;
+  background: #ffffff;
+  /* background: black; */
   padding: 0;
 `;
 
@@ -42,7 +43,7 @@ const TopContainer = styled.div`
 `;
 
 const IntroduceTitleTextContainer = styled.div`
-  margin-top: 3.15rem;
+  margin-top: 1.25rem;
   width: 100%;
   // display: flex;
 `;
@@ -158,8 +159,9 @@ const ButtonComponentContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.75rem;
   margin-top: 3.75rem;
+  margin-bottom: 2rem;
 `;
 
 const ButtonComponent = styled.button`
@@ -195,13 +197,25 @@ const ButtonComponent = styled.button`
 
 export default function Devlopers() {
   const personProfile = [
-    { image: PmProfileImg, name: "김지은" },
-    { image: designerProfileImg, name: "권기남" },
-    { image: backProfileK, name: "강민서" },
-    { image: backProfileL, name: "이주연" },
-    { image: frontProfileL, name: "이나경" },
-    { image: frontProfileP, name: "박제준" },
+    { image: PmProfileImg, name: '김지은' },
+    { image: designerProfileImg, name: '권기남' },
+    { image: backProfileK, name: '강민서' },
+    { image: backProfileL, name: '이주연' },
+    { image: frontProfileL, name: '이나경' },
+    { image: frontProfileP, name: '박제준' },
   ];
+
+  const navigate = useNavigate();
+
+  const handleBackToResult = () => {
+    const isCompleted = localStorage.getItem('completed');
+    if (isCompleted) {
+      navigate('/result');
+    } else {
+      alert('You must complete all questions first.');
+    }
+  };
+
   return (
     <Container>
       <Article>
@@ -210,10 +224,11 @@ export default function Devlopers() {
             <img
               src={LeftAllow}
               style={{
-                width: "1.75rem",
-                height: "1.75rem",
-                cursor: "pointer",
+                width: '1.75rem',
+                height: '1.75rem',
+                cursor: 'pointer',
               }}
+              onClick={handleBackToResult}
             />
           </TopContainer>
           <IntroduceTitleTextContainer>
@@ -225,8 +240,8 @@ export default function Devlopers() {
           </IntroduceTitleTextContainer>
           <IntroduceSubTextContainer>
             <IntroduceSubText>
-              갱년기 케어 솔루션과 자녀와 소통을 이어줄 수 있는 <br />{" "}
-              어플리케이션을 제작하고 있는 팀{" "}
+              갱년기 케어 솔루션과 자녀와 소통을 이어줄 수 있는 <br />{' '}
+              어플리케이션을 제작하고 있는 팀{' '}
               <span>[네카라쿠배그다음우리]</span> <br />
               입니다!
             </IntroduceSubText>

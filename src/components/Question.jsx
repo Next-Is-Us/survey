@@ -62,7 +62,7 @@ const Title = styled.p`
   line-height: 1.75rem;
   letter-spacing: -0.0375rem;
   text-align: left;
-  margin-bottom: 2rem;
+  margin-bottom: 0.75rem;
 `;
 
 const ChoiceBlank = styled.div`
@@ -92,6 +92,7 @@ const BlankContainer = styled.div`
   flex-direction: column;
   width: 100%;
   gap: 0.5rem;
+  margin-top: 1rem;
 `;
 
 const ChoiceP = styled.p`
@@ -131,57 +132,114 @@ const Button = styled.button`
   margin-bottom: 2rem;
 `;
 
+const StyledExplanation = styled.span`
+  color: var(--Font-04_Gray, #767676);
+  font-family: Pretendard;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.125rem; /* 150% */
+  letter-spacing: -0.01875rem;
+  text-align: left;
+`;
+
+const TitleP = styled.p`
+  text-align: left;
+`;
 const questions = [
   {
     text: (
       <React.Fragment>
-        홍조, 얼굴 화끈거림의 증상을 <br />
-        가지고 계신가요?
+        <Title>
+          홍조, 얼굴 화끈거림의 증상을 <br />
+          가지고 계신가요?
+        </Title>
       </React.Fragment>
     ),
     points: [12, 8, 4, 0],
   },
   {
-    text: '발현 증상을 겪고 계신가요?',
+    text: (
+      <React.Fragment>
+        <Title>발현 증상을 겪고 계신가요?</Title>
+      </React.Fragment>
+    ),
     points: [6, 4, 2, 0],
   },
   {
-    text: '불면증 증상을 겪고 계신가요?',
+    text: (
+      <React.Fragment>
+        <Title style={{ marginBottom: '0.25rem' }}>
+          신경증 증상을 겪고 계신가요? <br />
+        </Title>
+      </React.Fragment>
+    ),
     points: [6, 4, 2, 0],
   },
   {
-    text: '신경증 증상을 겪고 계신가요?',
+    text: (
+      <React.Fragment>
+        <Title>불면증 증상을 겪고 계신가요?</Title>
+      </React.Fragment>
+    ),
     points: [6, 4, 2, 0],
   },
   {
-    text: '우울증 증상을 겪고 계신가요?',
-    points: [3, 2, 1, 0],
-  },
-  {
-    text: '어지럼증 증상을 겪고 계신가요?',
-    points: [3, 2, 1, 0],
-  },
-  {
-    text: '잦은 피로감을 느끼시나요?',
-    points: [3, 2, 1, 0],
-  },
-  {
-    text: '관절통, 근육통을 느끼시나요?',
-    points: [3, 2, 1, 0],
-  },
-  {
-    text: '두통 증상을 겪고 계시나요?',
-    points: [3, 2, 1, 0],
-  },
-  {
-    text: '가슴 두근거림을 겪고 계시나요?',
+    text: (
+      <React.Fragment>
+        <Title>우울증 증상을 겪고 계신가요?</Title>
+      </React.Fragment>
+    ),
     points: [3, 2, 1, 0],
   },
   {
     text: (
       <React.Fragment>
-        질건조, 분비물 감소 증상을 <br />
-        겪고 계시나요?
+        <Title>어지럼증 증상을 겪고 계신가요?</Title>
+      </React.Fragment>
+    ),
+    points: [3, 2, 1, 0],
+  },
+  {
+    text: (
+      <React.Fragment>
+        <Title>잦은 피로감을 느끼시나요?</Title>
+      </React.Fragment>
+    ),
+    points: [3, 2, 1, 0],
+  },
+  {
+    text: (
+      <React.Fragment>
+        <Title>관절통, 근육통을 느끼시나요?</Title>
+      </React.Fragment>
+    ),
+    points: [3, 2, 1, 0],
+  },
+  {
+    text: (
+      <React.Fragment>
+        <Title>두통 증상을 겪고 계시나요?</Title>
+      </React.Fragment>
+    ),
+    points: [3, 2, 1, 0],
+  },
+  {
+    text: (
+      <React.Fragment>
+        <Title>가슴 두근거림을 겪고 계시나요?</Title>
+      </React.Fragment>
+    ),
+    points: [3, 2, 1, 0],
+  },
+  {
+    text: (
+      <React.Fragment>
+        <Title>
+          {' '}
+          질건조, 분비물 감소 증상을 <br />
+          겪고 계시나요?
+        </Title>
       </React.Fragment>
     ),
     points: [3, 2, 1, 0],
@@ -222,6 +280,7 @@ function Question() {
       if (currentQuestion < totalQuestions - 1) {
         setCurrentQuestion(currentQuestion + 1);
       } else {
+        localStorage.setItem('completed', 'true');
         navigate('/result', { state: { finalScore: score } });
       }
     }
@@ -237,6 +296,19 @@ function Question() {
 
   const isButtonDisabled = selectedOptions[currentQuestion] === null;
   const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+
+  const renderExplanation = () => {
+    if (currentQuestion === 2) {
+      return (
+        <StyledExplanation>
+          신경증이란?
+          <br />
+          내적 갈등이나 외부의 스트레스를 대처하는 데에 어려움이 발생하여 심리적
+          긴장이나 증상이 일어나는 일종의 인격 변화를 의미합니다.
+        </StyledExplanation>
+      );
+    }
+  };
 
   return (
     <Container>
@@ -258,7 +330,8 @@ function Question() {
               <Progressbar progress={progress} />
             </ProgressbarContainer>
 
-            <Title>{questions[currentQuestion].text}</Title>
+            <TitleP>{questions[currentQuestion].text}</TitleP>
+            {renderExplanation()}
 
             <BlankContainer>
               {options.map((option, index) => (

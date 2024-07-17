@@ -27,7 +27,7 @@ const PosTitleContainer = styled.div`
 `;
 
 const Button = styled.button`
-  margin-top: 4.13rem;
+  margin-top: 3.13rem;
   border-radius: 12px;
   background: ${({ isDisabled }) =>
     isDisabled ? 'rgba(163, 15, 250, 0.15)' : '#A30FFA'};
@@ -68,6 +68,19 @@ const ResultTitle = styled.p`
 const ResultExplain = styled.p`
   color: var(--Font-03_Gray, #505050);
   text-align: center;
+  font-family: Pretendard;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem;
+  letter-spacing: -0.02188rem;
+  margin-bottom: 1rem;
+`;
+
+const ResultNotice = styled.p`
+  color: var(--Font-03_Gray, #505050);
+  text-align: center;
+
   font-family: Pretendard;
   font-size: 0.875rem;
   font-style: normal;
@@ -142,7 +155,10 @@ function Result() {
           />
           <ResultTitle>{result.title}</ResultTitle>
           <ResultExplain>{result.explain}</ResultExplain>
-          <Button onClick={() => navigate('/Developer')}>
+          <ResultNotice>
+            * 해당 테스트는 쿠퍼만 지수를 바탕으로 제작되었습니다.
+          </ResultNotice>
+          <Button onClick={() => navigate('/Developers')}>
             다음으로 넘어가기
           </Button>
         </PosTitleContainer>
