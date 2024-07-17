@@ -189,7 +189,9 @@ const questions = [
 ];
 
 function Question() {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptions, setSelectedOptions] = useState(
+    Array(questions.length).fill(null)
+  );
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const totalQuestions = 11;
@@ -197,20 +199,30 @@ function Question() {
   const navigate = useNavigate();
 
   const handleSelect = (option) => {
-    setSelectedOption(option);
+    const newSelectedOptions = [...selectedOptions];
+    newSelectedOptions[currentQuestion] = option;
+    setSelectedOptions(newSelectedOptions);
+
+    const optionPoints =
+      questions[currentQuestion].points[options.indexOf(option)];
+    setScore(
+      (prevScore) =>
+        prevScore -
+        (selectedOptions[currentQuestion]
+          ? questions[currentQuestion].points[
+              options.indexOf(selectedOptions[currentQuestion])
+            ]
+          : 0) +
+        optionPoints
+    );
   };
 
   const handleNextQuestion = () => {
-    if (selectedOption !== null) {
-      const optionPoints =
-        questions[currentQuestion].points[options.indexOf(selectedOption)];
-      setScore(score + optionPoints);
-
+    if (selectedOptions[currentQuestion] !== null) {
       if (currentQuestion < totalQuestions - 1) {
         setCurrentQuestion(currentQuestion + 1);
-        setSelectedOption(null);
       } else {
-        navigate('/result', { state: { finalScore: score + optionPoints } });
+        navigate('/result', { state: { finalScore: score } });
       }
     }
   };
@@ -218,14 +230,12 @@ function Question() {
   const handlePreviousQuestion = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
-      const previousPoints =
-        questions[currentQuestion - 1].points[options.indexOf(selectedOption)];
-      setScore(score - previousPoints);
-      setSelectedOption(null);
+    } else {
+      navigate('/');
     }
   };
 
-  const isButtonDisabled = selectedOption === null;
+  const isButtonDisabled = selectedOptions[currentQuestion] === null;
   const progress = ((currentQuestion + 1) / totalQuestions) * 100;
 
   return (
@@ -254,10 +264,12 @@ function Question() {
               {options.map((option, index) => (
                 <ChoiceBlank
                   key={index}
-                  isSelected={selectedOption === option}
+                  isSelected={selectedOptions[currentQuestion] === option}
                   onClick={() => handleSelect(option)}
                 >
-                  <ChoiceP isSelected={selectedOption === option}>
+                  <ChoiceP
+                    isSelected={selectedOptions[currentQuestion] === option}
+                  >
                     {option}
                   </ChoiceP>
                 </ChoiceBlank>
