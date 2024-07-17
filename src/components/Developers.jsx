@@ -44,7 +44,6 @@ const TopContainer = styled.div`
 `;
 
 const IntroduceTitleTextContainer = styled.div`
-  margin-top: 1.25rem;
   width: 100%;
   // display: flex;
 `;

@@ -57,7 +57,7 @@ const Title = styled.p`
 
   /* MO/Title/KR/T1_KR_Sb */
   font-family: Pretendard;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-style: normal;
   font-weight: 600;
   line-height: 1.75rem;
