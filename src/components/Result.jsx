@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useLocation, Navigate } from 'react-router-dom';
+import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import Character1 from '../image/Frame 1707482235.png';
 import Character2 from '../image/Character2.png';
 import Character3 from '../image/Character3.png';
@@ -79,6 +79,7 @@ const ResultExplain = styled.p`
 function Result() {
   const location = useLocation();
   const finalScore = location.state?.finalScore;
+  const navigate = useNavigate();
 
   if (finalScore == null) {
     return <Navigate to="/" />;
@@ -141,7 +142,9 @@ function Result() {
           />
           <ResultTitle>{result.title}</ResultTitle>
           <ResultExplain>{result.explain}</ResultExplain>
-          <Button>다음으로 넘어가기</Button>
+          <Button onClick={() => navigate('/Developer')}>
+            다음으로 넘어가기
+          </Button>
         </PosTitleContainer>
       </Article>
     </Container>
