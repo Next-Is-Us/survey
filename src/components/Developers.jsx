@@ -10,6 +10,7 @@ import frontProfileP from '../image/frontProfileP.svg';
 import pencilImg from '../image/pencil.svg';
 import shareImg from '../image/share.svg';
 import { useNavigate } from 'react-router-dom';
+import GlobalStyle from '../GlobalStyle.js';
 
 const Container = styled.div`
   background: #ffffff;
@@ -218,6 +219,7 @@ export default function Devlopers() {
 
   return (
     <Container>
+      <GlobalStyle />
       <Article>
         <PosTitleContainer>
           <TopContainer>

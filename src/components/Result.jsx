@@ -4,6 +4,7 @@ import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import Character1 from '../image/Frame 1707482235.png';
 import Character2 from '../image/Character2.png';
 import Character3 from '../image/Character3.png';
+import GlobalStyle from '../GlobalStyle';
 
 const Container = styled.div`
   background: #ffffff;
@@ -143,6 +144,7 @@ function Result() {
 
   return (
     <Container>
+      <GlobalStyle />
       <Article>
         <PosTitleContainer>
           <img

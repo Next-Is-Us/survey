@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import LeftAllow from '../image/allow_left.png';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import GlobalStyle from '../GlobalStyle';
 
 const Container = styled.div`
   background: #ffffff;
@@ -312,6 +313,7 @@ function Question() {
 
   return (
     <Container>
+      <GlobalStyle />
       <Article>
         <PosTitleContainer>
           <TopContainer>
