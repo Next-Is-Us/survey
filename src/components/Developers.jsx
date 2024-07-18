@@ -241,6 +241,10 @@ export default function Devlopers() {
     }
   };
 
+  const handleSurveyClick = () => {
+    window.open('https://forms.gle/rytFQMrzEXn1ZXys8', '_blank');
+  };
+
   // const kakaoButton = () => {
   //   Kakao.Share.sendDefault({
   //     objectType: 'feed',
@@ -318,7 +322,7 @@ export default function Devlopers() {
             </DescribeSubText>
           </DescribeSubTextContainer>
           <ButtonComponentContainer>
-            <ButtonComponent participate>
+            <ButtonComponent participate onClick={handleSurveyClick}>
               <img src={pencilImg} alt="pencilImg" />
               설문조사 참여하기
             </ButtonComponent>

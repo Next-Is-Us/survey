@@ -56,7 +56,7 @@ const TestName = styled.p`
 
 const Images = styled.img`
   width: 100%;
-  height: 16.625rem;
+  height: 20rem;
   flex-shrink: 0;
   margin-top: 4.31rem;
 `;
