@@ -1,5 +1,5 @@
 import React from 'react';
-import Frame from '../image/MainImage.png';
+import Frame from '../image/mainIcon.svg';
 import styled from 'styled-components';
 import GlobalStyle from '../GlobalStyle.js';
 import { useNavigate } from 'react-router-dom';
@@ -56,7 +56,7 @@ const TestName = styled.p`
 
 const Images = styled.img`
   width: 100%;
-  height: 22rem;
+  height: 16.625rem;
   flex-shrink: 0;
   margin-top: 4.31rem;
 `;
