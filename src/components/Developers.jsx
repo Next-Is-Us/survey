@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import LeftAllow from '../image/allow_left.png';
 import PersonContainer from './PersonContainer';
-import PmProfileImg from '../image/pmProfile.svg';
-import designerProfileImg from '../image/designerProfile.svg';
-import backProfileK from '../image/backProfileK.svg';
-import backProfileL from '../image/backProfileL.svg';
-import frontProfileL from '../image/frontProfileL.svg';
-import frontProfileP from '../image/frontProfileP.svg';
+import PmProfileImg from '../image/pmProfilep.png';
+import designerProfileImg from '../image/designerProfile.jpeg';
+import backProfileK from '../image/backProfileK.jpeg';
+import backProfileL from '../image/backProfileL.jpeg';
+import frontProfileL from '../image/frontProfileL.png';
+import frontProfileP from '../image/frontProfileP.png';
 import pencilImg from '../image/pencil.svg';
 import shareImg from '../image/share.svg';
 import { useNavigate } from 'react-router-dom';
@@ -198,6 +198,11 @@ const ButtonComponent = styled.button`
 export default function Devlopers() {
   const personProfile = [
     { image: PmProfileImg, name: '김지은' },
+    // { image: PmProfileImg, name: '김지은' },
+    // { image: PmProfileImg, name: '김지은' },
+    // { image: PmProfileImg, name: '김지은' },
+    // { image: PmProfileImg, name: '김지은' },
+    // { image: PmProfileImg, name: '김지은' },
     { image: designerProfileImg, name: '권기남' },
     { image: backProfileK, name: '강민서' },
     { image: backProfileL, name: '이주연' },

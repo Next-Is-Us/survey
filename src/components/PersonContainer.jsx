@@ -8,6 +8,12 @@ const PersonInfoBox = styled.div`
   gap: 0.25rem;
 `
 
+const PersonImg = styled.img`
+  width: 2.875rem;
+  height: 2.875rem;
+  border-radius: 2.875rem;
+`
+
 const PersonNameText = styled.p`
   color: var(--Font-02_black, #111);
   text-align: center;
@@ -24,7 +30,7 @@ const PersonNameText = styled.p`
 export default function PersonContainer({image, name}) {
   return (
     <PersonInfoBox>
-      <img src={image} alt="profileImg" />
+      <PersonImg src={image} alt="profileImg" />
       <PersonNameText>{name}</PersonNameText>
     </PersonInfoBox>
   )
