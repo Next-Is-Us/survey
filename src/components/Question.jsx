@@ -162,7 +162,7 @@ const questions = [
   {
     text: (
       <React.Fragment>
-        <Title>발현 증상을 겪고 계신가요?</Title>
+        <Title>발한 증상을 겪고 계신가요?</Title>
       </React.Fragment>
     ),
     points: [6, 4, 2, 0],
