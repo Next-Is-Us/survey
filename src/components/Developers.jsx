@@ -11,6 +11,8 @@ import pencilImg from '../image/pencil.svg';
 import shareImg from '../image/share.svg';
 import { useNavigate } from 'react-router-dom';
 import GlobalStyle from '../GlobalStyle.js';
+import { useEffect } from 'react';
+import imgLogo from "../image/todayHeart.png";
 
 const Container = styled.div`
   background: #ffffff;
@@ -187,7 +189,7 @@ const ButtonComponent = styled.button`
   background: ${(props) => {
     if (props.participate) {
       return '#A30FFA';
-    } else if (props.share) {
+    } else if (props.shareButton) {
       return 'var(--System-Green-500, #4AA63C)';
     } else {
       return 'gray';
@@ -198,11 +200,6 @@ const ButtonComponent = styled.button`
 export default function Devlopers() {
   const personProfile = [
     { image: PmProfileImg, name: '김지은' },
-    // { image: PmProfileImg, name: '김지은' },
-    // { image: PmProfileImg, name: '김지은' },
-    // { image: PmProfileImg, name: '김지은' },
-    // { image: PmProfileImg, name: '김지은' },
-    // { image: PmProfileImg, name: '김지은' },
     { image: designerProfileImg, name: '권기남' },
     { image: backProfileK, name: '강민서' },
     { image: backProfileL, name: '이주연' },
@@ -220,6 +217,54 @@ export default function Devlopers() {
       alert('You must complete all questions first.');
     }
   };
+
+  useEffect(() => {
+    if (window.Kakao && !window.Kakao.isInitialized()) {
+      window.Kakao.init('bd82ff516a77ec4bafe71a92dcfd51f6');
+      console.log('Kakao initialized:', window.Kakao.isInitialized());
+    }
+  }, []);
+
+  const kakaoButton = () => {
+    if (window.Kakao) {
+      window.Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: '갱년기 자가진단 테스트',
+          description: '지금 나는 갱년기일까?',
+          imageUrl: 'logoImg',
+          link: {
+            mobileWebUrl: 'https://climacterictest.netlify.app',
+            webUrl: 'https://climacterictest.netlify.app',
+          },
+        },
+      });
+    }
+  };
+
+  // const kakaoButton = () => {
+  //   Kakao.Share.sendDefault({
+  //     objectType: 'feed',
+  //     content: {
+  //               title: '갱년기 자가진단 테스트',
+  //               description: '지금 나는 갱년기일까?',
+  //               imageUrl: logoImg,
+  //               link: {
+  //                 mobileWebUrl: 'https://climacterictest.netlify.app',
+  //                 webUrl: 'https://climacterictest.netlify.app',
+  //               },
+  //             },
+  //     // buttons: [
+  //     //     {
+  //     //       title: '나도 테스트 하러가기',
+  //     //       link: {
+  //     //         mobileWebUrl: 'https://climacterictest.netlify.app',
+  //     //         webUrl: 'https://climacterictest.netlify.app',
+  //     //       },
+  //     //     },
+  //     //   ],
+  //   });
+  // }
 
   return (
     <Container>
@@ -288,7 +333,7 @@ export default function Devlopers() {
               <img src={pencilImg} alt="pencilImg" />
               설문조사 참여하기
             </ButtonComponent>
-            <ButtonComponent share>
+            <ButtonComponent shareButton onClick={kakaoButton}>
               <img src={shareImg} alt="pencilImg" />
               테스트 공유하기
             </ButtonComponent>
