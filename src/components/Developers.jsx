@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import LeftAllow from '../image/allow_left.png';
 import PersonContainer from './PersonContainer';
 import PmProfileImg from '../image/pmProfilep.png';
 import designerProfileImg from '../image/designerProfile.jpeg';
@@ -12,7 +11,7 @@ import shareImg from '../image/share.svg';
 import { useNavigate } from 'react-router-dom';
 import GlobalStyle from '../GlobalStyle.js';
 import { useEffect } from 'react';
-import imgLogo from "../image/todayHeart.png";
+import imgLogo from '../image/todayHeart.png';
 
 const Container = styled.div`
   background: #ffffff;
@@ -271,17 +270,7 @@ export default function Devlopers() {
       <GlobalStyle />
       <Article>
         <PosTitleContainer>
-          <TopContainer>
-            <img
-              src={LeftAllow}
-              style={{
-                width: '1.75rem',
-                height: '1.75rem',
-                cursor: 'pointer',
-              }}
-              onClick={handleBackToResult}
-            />
-          </TopContainer>
+          <TopContainer></TopContainer>
           <IntroduceTitleTextContainer>
             <IntroduceTitleText>
               안녕하세요!

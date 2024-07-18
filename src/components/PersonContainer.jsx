@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 const PersonInfoBox = styled.div`
   display: flex;
@@ -6,13 +6,14 @@ const PersonInfoBox = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.25rem;
-`
+`;
 
 const PersonImg = styled.img`
   width: 2.875rem;
   height: 2.875rem;
   border-radius: 2.875rem;
-`
+  object-fit: cover;
+`;
 
 const PersonNameText = styled.p`
   color: var(--Font-02_black, #111);
@@ -25,13 +26,13 @@ const PersonNameText = styled.p`
   font-weight: 400;
   line-height: 1.125rem; /* 150% */
   letter-spacing: -0.01875rem;
-`
+`;
 
-export default function PersonContainer({image, name}) {
+export default function PersonContainer({ image, name }) {
   return (
     <PersonInfoBox>
       <PersonImg src={image} alt="profileImg" />
       <PersonNameText>{name}</PersonNameText>
     </PersonInfoBox>
-  )
+  );
 }
