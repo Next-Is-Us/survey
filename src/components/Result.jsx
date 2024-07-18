@@ -4,6 +4,7 @@ import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import Character1 from '../image/Frame 1707482235.png';
 import Character2 from '../image/Character2.png';
 import Character3 from '../image/Character3.png';
+import Character4 from "../image/Character4.svg";
 import GlobalStyle from '../GlobalStyle';
 
 const Container = styled.div`
@@ -124,9 +125,9 @@ function Result() {
           </React.Fragment>
         ),
       };
-    } else {
+    } else if(score >=5) {
       return {
-        image: Character1,
+        image: Character4,
         title: '경미한 갱년기 상태',
         explain: (
           <React.Fragment>
@@ -134,6 +135,18 @@ function Result() {
             <br />
             <b>건강한 식사, 규칙적인 운동의 생활 습관</b>을<br /> 갖추시는 것을
             추천드려요.
+          </React.Fragment>
+        ),
+      };
+    } else {
+      return {
+        image: Character1,
+        title: '아직은 아니에요!',
+        explain: (
+          <React.Fragment>
+            아직은 갱년기가 아닌 것 같아요!
+            <br />
+            그래도 <b>내 몸의 변화</b>를 잘 지켜보는 게<br />좋을 것 같습니다.
           </React.Fragment>
         ),
       };
