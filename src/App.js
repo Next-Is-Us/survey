@@ -9,7 +9,7 @@ import Home from './components/Home';
 import Question from './components/Question';
 import Result from './components/Result';
 import Devlopers from './components/Developers';
-
+import { useEffect } from 'react';
 import PmProfileImg from './image/pmProfilep.png';
 import designerProfileImg from './image/designerProfile.jpeg';
 import backProfileK from './image/backProfileK.jpeg';
